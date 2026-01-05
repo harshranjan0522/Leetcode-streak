@@ -1,0 +1,30 @@
+class Solution {
+public:
+    long long maxMatrixSum(vector<vector<int>>& matrix) {
+        long long sum = 0;
+        int negCount = 0;
+        int minAbs = INT_MAX;
+        bool hasZero = false;
+
+        int n = matrix.size();
+        int m = matrix[0].size();
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                int x = matrix[i][j];
+
+                if (x < 0) negCount++;
+                if (x == 0) hasZero = true;
+
+                sum += abs(x);
+                minAbs = min(minAbs, abs(x));
+            }
+        }
+
+        if (negCount % 2 == 1 && !hasZero) {
+            sum -= 2LL * minAbs;
+        }
+
+        return sum;
+    }
+};
